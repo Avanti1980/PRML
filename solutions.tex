@@ -1,0 +1,942 @@
+\documentclass[openany]{ctexart}
+\usepackage{amsmath,amssymb,amsthm,bm}
+\usepackage{xcolor}
+\definecolor{Solarized-base03}{RGB}{0, 43, 54}
+\definecolor{Solarized-base02}{RGB}{7, 54, 66}
+\definecolor{Solarized-base01}{RGB}{88, 110, 117}
+\definecolor{Solarized-base00}{RGB}{101, 123, 131}
+\definecolor{Solarized-base0}{RGB}{131, 148, 150}
+\definecolor{Solarized-base1}{RGB}{147, 161, 161}
+\definecolor{Solarized-base2}{RGB}{238, 232, 213}
+\definecolor{Solarized-base3}{RGB}{253, 246, 227}
+\definecolor{Solarized-yellow}{RGB}{181, 137, 0}
+\definecolor{Solarized-orange}{RGB}{203, 75, 22}
+\definecolor{Solarized-red}{RGB}{220, 50, 47}
+\definecolor{Solarized-magenta}{RGB}{211, 54, 130}
+\definecolor{Solarized-violet}{RGB}{108, 113, 196}
+\definecolor{Solarized-blue}{RGB}{38, 139, 210}
+\definecolor{Solarized-cyan}{RGB}{42, 161, 152}
+\definecolor{Solarized-green}{RGB}{133, 153, 0}
+
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{algorithm,algorithmic}
+\usepackage[bookmarksnumbered,bookmarksopen,colorlinks=true,citecolor=Solarized-green,anchorcolor=Solarized-blue,linkcolor=Solarized-blue,CJKbookmarks=true]{hyperref}
+\usepackage{tikz}
+
+\usepackage{enumitem}
+\setenumerate[1]{itemsep=0pt,partopsep=0pt,parsep=0pt,topsep=0pt}
+\setitemize[1]{itemsep=0pt,partopsep=0pt,parsep=0pt,topsep=0pt}
+\setdescription{itemsep=0pt,partopsep=0pt,parsep=0pt,topsep=0pt}
+
+\usepackage{titlesec}
+\titleformat{\section}
+{\color{Solarized-yellow}\normalfont\Large\bfseries}
+{\color{Solarized-yellow}\thesection}{1em}{}
+\titleformat{\subsection}
+{\color{Solarized-violet}\normalfont\large\bfseries}
+{\color{Solarized-violet}\thesubsection}{1em}{}
+
+\usepackage[charter]{newtxmath} % http://texdoc.net/texmf-dist/doc/fonts/newtx/newtxdoc.pdf
+\setmainfont[]{EBGaramond08-Regular}
+\setCJKmainfont[BoldFont=FZHei-B01,ItalicFont=FZZhanBiHei-M22]{FZLongZhao-R-GB}
+\xeCJKsetup{CJKmath=true}
+\everymath{\color{Solarized-magenta}}
+
+\theoremstyle{definition}
+\newtheorem{thm}{\bf{定理}}
+
+\newtheorem{lem}[thm]{\bf{引理}}
+\newtheorem{cor}[thm]{\bf{推论}}
+\newtheorem{defn}[thm]{\bf{定义}}
+\newtheorem{example}[thm]{\bf{例}}
+\newtheorem*{rmk}{\bf{注}}
+
+\newtheoremstyle{Solarized-exercise}{}{}{\color{Solarized-base01}}{}{\color{Solarized-red}\bfseries}{}{ }{}
+\theoremstyle{Solarized-exercise}
+\newtheorem{exercise}{Q.}[section]
+\newtheorem{proposition}{Prop}
+
+\newtheoremstyle{Solarized-solution}{}{}{\color{Solarized-base01}}{}{\color{Solarized-green}\bfseries}{}{ }{}
+\theoremstyle{Solarized-solution}
+\newtheorem*{solution}{A.}
+
+\def \zerov {\bm{0}}
+\def \av {\bm{a}}
+\def \bv {\bm{b}}
+\def \cv {\bm{c}}
+\def \dv {\bm{d}}
+\def \ev {\bm{e}}
+\def \fv {\bm{f}}
+\def \gv {\bm{g}}
+\def \hv {\bm{h}}
+\def \pv {\bm{p}}
+\def \tv {\bm{t}}
+\def \uv {\bm{u}}
+\def \vv {\bm{v}}
+\def \wv {\bm{w}}
+\def \xv {\bm{x}}
+\def \yv {\bm{y}}
+\def \zv {\bm{z}}
+
+\def \Av {\mathbf{A}}
+\def \Bv {\mathbf{B}}
+\def \Cv {\mathbf{C}}
+\def \Dv {\mathbf{D}}
+\def \Fv {\mathbf{F}}
+\def \Gv {\mathbf{G}}
+\def \Hv {\mathbf{H}}
+\def \Iv {\mathbf{I}}
+\def \Kv {\mathbf{K}}
+\def \Lv {\mathbf{L}}
+\def \Mv {\mathbf{M}}
+\def \Pv {\mathbf{P}}
+\def \Qv {\mathbf{Q}}
+\def \Sv {\mathbf{S}}
+\def \Uv {\mathbf{U}}
+\def \Vv {\mathbf{V}}
+\def \Wv {\mathbf{W}}
+\def \Xv {\mathbf{X}}
+\def \Yv {\mathbf{Y}}
+\def \Zv {\mathbf{Z}}
+
+\def \alphav {\bm{\alpha}}
+\def \betav {\bm{\beta}}
+\def \gammav {\bm{\gamma}}
+\def \lambdav {\bm{\lambda}}
+\def \Lambdav {\bm{\Lambda}}
+\def \thetav {\bm{\theta}}
+\def \epsilonv {\bm{\epsilon}}
+\def \xiv {\bm{\xi}}
+\def \muv {\bm{\mu}}
+\def \Sigmav {\bm{\Sigma}}
+\def \Phiv {\bm{\Phi}}
+\def \nuv {\bm{\nu}}
+
+\def \Bcal {\mathcal{B}}
+\def \Lcal {\mathcal{L}}
+\def \Ncal {\mathcal{N}}
+
+\def \Dbb {\mathbb{D}}
+\def \Ebb {\mathbb{E}}
+\def \Rbb {\mathbb{R}}
+\def \Sbb {\mathbb{S}}
+
+\def \Lfrak {\mathfrak{L}}
+
+\def \diag {\mathrm{diag}}
+\def \sign {\mathrm{sign}}
+\def \sp {\mathrm{span}}
+\def \diff {\mathrm{d}}
+\def \tr {\mathrm{tr}}
+\def \KL {\mathrm{KL}}
+\def \var {\mathrm{var}}
+\def \cov {\mathrm{cov}}
+
+\def \st {\mbox{s.t.}}
+\def \const {\mbox{const}}
+
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+
+\allowdisplaybreaks[4]
+
+\begin{document}
+\title{\color{Solarized-base01}{PRML习题解答}}
+\author{\color{Solarized-base01}{圆眼睛的阿凡提哥哥}}
+\date{\color{Solarized-base01}{\today}}
+\maketitle
+
+\pagecolor{Solarized-base3}
+\textcolor{Solarized-base01}
+\tableofcontents
+
+\section{Introduction}
+
+\begin{exercise}
+    Consider the sum-of-squares error function given by (1.2) in which the function $y(x, \wv)$ is given by the polynomial (1.1). Show that the coefficients $\wv = \{w_i\}$ that minimize this error function are given by the solution to the following set of linear equations
+    \begin{align*}
+        \sum_{j \in [m]} A_{ij} w_j = T_i
+    \end{align*}
+    where
+    \begin{align*}
+        A_{ij} = \sum_{n \in [N]} (x_n)^{i+j}, \quad T_i = \sum_{n \in [N]} (x_n)^i t_n
+    \end{align*}
+    Here a suffix $i$ or $j$ denotes the index of a component, whereas $(x)^i$ denotes $x$ raised to the power of $i$.
+\end{exercise}
+
+\begin{solution}
+    损失函数为
+    \begin{align*}
+        E(\wv) = \frac{1}{2} \sum_{n \in [N]} (w_0 + w_1 x_n + w_2 (x_n)^2 + \cdots + w_M (x_n)^M - t_n)^2 = \frac{1}{2} \sum_{n \in [N]} \left( \sum_{j \in [m]} w_j (x_n)^j - t_n \right)^2
+    \end{align*}
+    偏导数为
+    \begin{align*}
+        \frac{\partial E(\wv)}{\partial w_i} = \sum_{n \in [N]} \left( \sum_{j \in [m]} w_j (x_n)^j - t_n \right) (x_n)^i = \sum_{n \in [N]} \sum_{j \in [m]} w_j (x_n)^{i+j} - \sum_{n \in [N]} t_n (x_n)^i = \sum_{j \in [m]} A_{ij} w_j - T_i
+    \end{align*}
+    显然最优解应使上式为零。
+\end{solution}
+
+\begin{exercise}
+    Write down the set of coupled linear equations, analogous to (1.122), satisfied by the coefficients $w_i$ which minimize the regularized sum-of-squares error function given by (1.4).
+\end{exercise}
+
+\begin{solution}
+    损失函数为
+    \begin{align*}
+        E(\wv) = \frac{1}{2} \sum_{n \in [N]} \left( \sum_{j \in [m]} w_j (x_n)^j - t_n \right)^2 + \frac{\lambda}{2} \sum_{j \in [m]} w_j^2
+    \end{align*}
+    偏导数为
+    \begin{align*}
+        \frac{\partial E(\wv)}{\partial w_i} = \sum_{j \in [m]} A_{ij} w_j - T_i + \lambda w_i = \sum_{j \in [m]} (A_{ij} + \lambda I_{ij}) w_j - T_i
+    \end{align*}
+    故需满足的方程组为
+    \begin{align*}
+        \sum_{j \in [m]} (A_{ij} + \lambda I_{ij}) w_j = T_i, \quad i \in [N]
+    \end{align*}
+\end{solution}
+
+\begin{exercise}
+    Suppose that we have three coloured boxes $r$ (red), $b$ (blue), and $g$ (green). Box $r$ contains $3$ apples, $4$ oranges, and $3$ limes, box $b$ contains $1$ apple, $1$ orange, and $0$ limes, and box $g$ contains $3$ apples, $3$ oranges, and $4$ limes. If a box is chosen at random with probabilities $p(r) = 0.2$, $p(b) = 0.2$, $p(g) = 0.6$, and a piece of fruit is removed from the box (with equal probability of selecting any of the items in the box), then what is the probability of selecting an apple? If we observe that the selected fruit is in fact an orange, what is the probability that it came from the green box?
+\end{exercise}
+
+\begin{solution}
+    由全概率公式
+    \begin{align*}
+        p(F = a) & = p(F = a | B = r) p(B = r) + p(F = a | B = b) p(B = b) + p(F = a | B = g) p(B = g) \\
+                 & = \frac{3}{10} \times 0.2 + \frac{1}{2} \times 0.2 + \frac{3}{10} \times 0.6        \\
+                 & = 0.34
+    \end{align*}
+    同理
+    \begin{align*}
+        p(F = o) & = p(F = o | B = r) p(B = r) + p(F = o | B = b) p(B = b) + p(F = o | B = g) p(B = g) \\
+                 & = \frac{4}{10} \times 0.2 + \frac{1}{2} \times 0.2 + \frac{3}{10} \times 0.6        \\
+                 & = 0.36
+    \end{align*}
+    于是
+    \begin{align*}
+        p(B = g | F = o) = \frac{p(F = o | B = g) p(B = g)}{p(F = o)} = \frac{0.18}{0.36} = 0.5
+    \end{align*}
+\end{solution}
+
+\begin{exercise}
+    Consider a probability density $p_x (x)$ defined over a continuous variable $x$, and suppose that we make a nonlinear change of variable using $x = g(y)$, so that the density transforms according to (1.27). By differentiating (1.27), show that the location $\widehat{y}$ of the maximum of the density in $y$ is not in general related to the location $\widehat{x}$ of the maximum of the density over $x$ by the simple functional relation $\widehat{x} = g(\widehat{y})$ as a consequence of the Jacobian factor. This shows that the maximum of a probability density (in contrast to a simple function) is dependent on the choice of variable. Verify that, in the case of a linear transformation, the location of the maximum transforms in the same way as the variable itself.
+\end{exercise}
+
+\begin{solution}
+    对于函数$f(x)$，设它有一个极大值点$\widehat{x}$，即$f'(\widehat{x}) = 0$，现做变量代换$x = g(y)$得到$\widetilde{f} (y) = f(g(y))$，设其极大值点为$\widehat{y}$，于是
+    \begin{align*}
+        \widetilde{f}'(\widehat{y}) = f'(g(\widehat{y})) g'(\widehat{y}) = 0
+    \end{align*}
+    设变换$g$没有极值点，即$g'(\widehat{y}) \neq 0$，则有$f'(g(\widehat{y})) = 0$，从而$\widehat{x} = g(\widehat{y})$。
+
+    对于概率分布$p_x(x)$和变量代换$x = g(y)$，
+    \begin{align*}
+        p_y (y) = p_x (x) \left| \frac{\diff x}{\diff y} \right| = p_x (g(y)) s g'(y)
+    \end{align*}
+    其中$s \in \{\pm 1\}$，易知
+    \begin{align*}
+        p'_y (y) = s p'_x (g(y)) (g'(y))^2 + s p_x (g(y)) g''(y)
+    \end{align*}
+    由于第二项的存在，此时$\widehat{x} = g(\widehat{y})$一般不再成立，但若$g(y)$是线性变换，则$g'(y)$是常数，$g''(y)$恒为零，此时有$p'_x (g(\widehat{y})) = 0$，从而$\widehat{x} = g(\widehat{y})$。
+\end{solution}
+
+\begin{exercise}
+    Using the definition (1.38) show that $\var[f (x)]$ satisfies (1.39).
+\end{exercise}
+
+\begin{solution}
+    利用期望的线性性可得
+    \begin{align*}
+        \var[f] & = \Ebb[f(x)^2 - 2 f(x) \Ebb[f(x)] + \Ebb[f(x)]^2]       \\
+                & = \Ebb[f(x)^2] - 2 \Ebb[f(x)] \Ebb[f(x)] + \Ebb[f(x)]^2 \\
+                & = \Ebb[f(x)^2] - \Ebb[f(x)]^2
+    \end{align*}
+\end{solution}
+
+\begin{exercise}
+    Show that if two variables $x$ and $y$ are independent, then their covariance is zero.
+\end{exercise}
+
+\begin{solution}
+    若$x,y$独立，则$p(x,y) = p(x) p(y)$，于是
+    \begin{align*}
+        \Ebb[xy] & = \iint p(x,y) xy \diff x \diff y = \iint p(x) p(y) xy \diff x \diff y = \left( \int p(x) x \diff x \right) \left( \int p(y) y \diff y \right) = \Ebb[x] \Ebb[y]
+    \end{align*}
+    从而协方差为零。
+\end{solution}
+
+\begin{exercise}
+    In this exercise, we prove the normalization condition (1.48) for the univariate Gaussian. To do this consider, the integral
+    \begin{align*}
+        I = \int_{-\infty}^\infty \exp \left( - \frac{1}{2\sigma^2} x^2 \right) \diff x
+    \end{align*}
+    which we can evaluate by first writing its square in the form
+    \begin{align*}
+        I^2 = \int_{-\infty}^\infty \int_{-\infty}^\infty \exp \left( - \frac{1}{2\sigma^2} x^2 - \frac{1}{2\sigma^2} y^2 \right) \diff x \diff y
+    \end{align*}
+    Now make the transformation from Cartesian coordinates $(x, y)$ to polar coordinates $(r, \theta)$ and then substitute $u = r^2$. Show that, by performing the integrals over $\theta$ and $u$, and then taking the square root of both sides, we obtain
+    \begin{align*}
+        I = (2 \pi \sigma^2)^{1/2}
+    \end{align*}
+    Finally, use this result to show that the Gaussian distribution $\Ncal (x | \mu, \sigma^2)$ is normalized.
+\end{exercise}
+
+\begin{solution}
+    令$x = r \cos \theta$、$y = r \sin \theta$，则
+    \begin{align*}
+        \diff x \diff y = \left| \begin{matrix}
+            \frac{\partial x}{r} & \frac{\partial x}{\theta} \\ \frac{\partial y}{r} & \frac{\partial y}{\theta}
+        \end{matrix} \right| \diff r \diff \theta = \left| \begin{matrix}
+            \cos \theta & -r \sin \theta \\ \sin \theta & r \cos \theta
+        \end{matrix} \right| \diff r \diff \theta = r \diff r \diff \theta
+    \end{align*}
+    令$t = r^2 / 2 \sigma^2$，于是
+    \begin{align*}
+        I^2 = \int_0^{2\pi} \int_0^\infty \exp \left( - \frac{1}{2\sigma^2} r^2 \right) r \diff r \diff \theta = 2 \pi \sigma^2 \int_0^\infty \exp (-t) \diff t = 2 \pi \sigma^2 [- \exp(-t)|_0^\infty] = 2 \pi \sigma^2
+    \end{align*}
+    故$I = (2 \pi \sigma^2)^{1/2}$。令$y = x - \mu$，从而
+    \begin{align*}
+        \int_{-\infty}^\infty \Ncal (x | \mu, \sigma^2) \diff x & = \int_{-\infty}^\infty \frac{1}{(2 \pi \sigma^2)^{1/2}} \exp \left( -\frac{1}{2\sigma^2} (x - \mu)^2 \right) \diff x \\
+                                                                & = \frac{1}{(2 \pi \sigma^2)^{1/2}} \int_{-\infty}^\infty \exp \left( -\frac{1}{2\sigma^2} y^2 \right) \diff y         \\
+                                                                & = 1
+    \end{align*}
+\end{solution}
+
+\begin{exercise}
+    By using a change of variables, verify that the univariate Gaussian distribution given by (1.46) satisfies (1.49). Next, by differentiating both sides of the normalization condition
+    \begin{align*}
+        \int_{-\infty}^\infty \Ncal (x | \mu, \sigma^2) \diff x = 1
+    \end{align*}
+    with respect to $\sigma^2$, verify that the Gaussian satisfies (1.50). Finally, show that (1.51) holds.
+\end{exercise}
+
+\begin{solution}
+    令$y = x - \mu$，易知
+    \begin{align*}
+        \Ebb[x] = \int_{-\infty}^\infty \Ncal (x | \mu, \sigma^2) x \diff x & = \frac{1}{(2 \pi \sigma^2)^{1/2}} \int_{-\infty}^\infty x \exp \left( -\frac{1}{2\sigma^2} (x - \mu)^2 \right) \diff x                               \\
+                                                                            & = \frac{1}{(2 \pi \sigma^2)^{1/2}} \int_{-\infty}^\infty (y + \mu) \exp \left( -\frac{1}{2\sigma^2} y^2 \right) \diff y                               \\
+                                                                            & = \frac{1}{(2 \pi \sigma^2)^{1/2}} \int_{-\infty}^\infty \underbrace{y \exp \left( -\frac{1}{2\sigma^2} y^2 \right)}_{奇函数，积分为零} \diff y + \mu \\
+                                                                            & = \mu
+    \end{align*}
+    对
+    \begin{align*}
+        \int_{-\infty}^\infty \exp \left( -\frac{1}{2\sigma^2} (x - \mu)^2 \right) \diff x = (2 \pi \sigma^2)^{1/2}
+    \end{align*}
+    两边关于$\sigma^2$求导可得
+    \begin{align*}
+        \int_{-\infty}^\infty \exp \left( -\frac{1}{2\sigma^2} (x - \mu)^2 \right) \frac{(x - \mu)^2}{2\sigma^4} \diff x = (2 \pi \sigma^2)^{-1/2} \pi
+    \end{align*}
+    两边同时乘以$2\sigma^4 / (2 \pi \sigma^2)^{1/2}$可得
+    \begin{align*}
+        \frac{1}{(2 \pi \sigma^2)^{1/2}} \int_{-\infty}^\infty \exp \left( -\frac{1}{2\sigma^2} (x - \mu)^2 \right) (x^2 - 2 x \mu + \mu^2) \diff x = \frac{2\sigma^4}{2 \pi \sigma^2} \pi = \sigma^2
+    \end{align*}
+    于是
+    \begin{align*}
+        \Ebb[x^2] = 2 \mu \Ebb[x] - \mu^2 + \sigma^2 = \mu^2 + \sigma^2
+    \end{align*}
+    从而
+    \begin{align*}
+        \var[x^2] = \Ebb[x^2] - \Ebb[x]^2 = \sigma^2
+    \end{align*}
+\end{solution}
+
+\begin{exercise}
+    Show that the mode (i.e. the maximum) of the Gaussian distribution (1.46) is given by $\mu$. Similarly, show that the mode of the multivariate Gaussian (1.52) is given by $\muv$.
+\end{exercise}
+
+\begin{solution}
+    显然
+    \begin{align*}
+        \frac{\partial \Ncal(x | \mu, \sigma^2)}{\partial x} = \frac{1}{(2 \pi \sigma^2)^{1/2}} \exp \left( -\frac{1}{2\sigma^2} (x - \mu)^2 \right) \left( -\frac{x - \mu}{\sigma^2} \right) = 0 \Longrightarrow x = \mu
+    \end{align*}
+    同理
+    \begin{align*}
+        \frac{\partial \Ncal(\xv | \muv, \Sigmav)}{\partial \xv} = \frac{1}{(2 \pi)^{D/2} |\Sigmav|^{1/2}} \exp \left( -\frac{1}{2} (\xv - \muv)^\top \Sigmav^{-1} (\xv - \muv) \right) \left( -\Sigmav^{-1} (\xv - \muv) \right) = \zerov \Longrightarrow \xv = \muv
+    \end{align*}
+\end{solution}
+
+\begin{exercise}
+    Suppose that the two variables $x$ and $z$ are statistically independent. Show that the mean and variance of their sum satisfies
+    \begin{align*}
+        \Ebb[x+z] & = \Ebb[x] + \Ebb[z] \\
+        \var[x+z] & = \var[x] + \var[z]
+    \end{align*}
+\end{exercise}
+
+\begin{solution}
+    若$x$、$z$独立，则$p(x,z) = p(x) p(z)$，于是
+    \begin{align*}
+        \Ebb[x+z] & = \iint p(x,z) (x+z) \diff x \diff z        \\
+                  & = \iint p(x) p(z) (x+z) \diff x \diff z     \\
+                  & = \int p(x) x \diff x + \int p(z) z \diff z \\
+                  & = \Ebb[x] + \Ebb[z]
+    \end{align*}
+    又
+    \begin{align*}
+        \Ebb[(x+z)^2] & = \iint p(x,z) (x+z)^2 \diff x \diff z              \\
+                      & = \iint p(x) p(z) (x^2 + 2xz + z^2) \diff x \diff z \\
+                      & = \Ebb[x^2] + 2 \Ebb[x] \Ebb[z] + \Ebb[z^2]
+    \end{align*}
+    于是
+    \begin{align*}
+        \var[x+z] & = \Ebb[(x+z)^2] - \Ebb[x+z]^2                                       \\
+                  & = \Ebb[x^2] + 2 \Ebb[x] \Ebb[z] + \Ebb[z^2] - (\Ebb[x] + \Ebb[z])^2 \\
+                  & = \Ebb[x^2] - \Ebb[x]^2 + \Ebb[z^2] - \Ebb[z]^2                     \\
+                  & = \var[x] + \var[z]
+    \end{align*}
+\end{solution}
+
+\begin{exercise}
+    By setting the derivatives of the log likelihood function (1.54) with respect to $\mu$ and $\sigma^2$ equal to zero, verify the results (1.55) and (1.56).
+\end{exercise}
+
+\begin{solution}
+    由于$\mu$与$\sigma$解耦合，可以先求$\mu_{ML}$，再求$\sigma^2_{ML}$，易知有
+    \begin{align*}
+        \frac{\partial \ln p(x_1, \ldots, x_N | \mu, \sigma^2)}{\partial \mu} = - \frac{1}{2 \sigma^2} \sum_{n \in [N]} \frac{\partial (x_n - \mu)^2}{\partial \mu} = - \frac{1}{\sigma^2} \sum_{n \in [N]} (\mu - x_n) \Longrightarrow \mu_{ML} = \frac{1}{N} \sum_{n \in [N]} x_n
+    \end{align*}
+    于是
+    \begin{align*}
+        \frac{\partial \ln p(x_1, \ldots, x_N | \mu, \sigma^2)}{\partial \sigma^2} = \frac{1}{2 \sigma^4} \sum_{n \in [N]} (x_n - \mu)^2 - \frac{N}{2} \frac{1}{\sigma^2} \Longrightarrow \sigma^2_{ML} = \frac{1}{N} \sum_{n \in [N]} (x_n - \mu_{ML})^2
+    \end{align*}
+\end{solution}
+
+\begin{exercise}
+    Using the results (1.49) and (1.50), show that
+    \begin{align*}
+        \Ebb[x_n x_m] = \mu^2 + I_{nm} \sigma^2
+    \end{align*}
+    where $x_n$ and $x_m$ denote data points sampled from a Gaussian distribution with mean $\mu$ and variance $\sigma_2$, and $I_{nm}$ satisfies $I_{nm} = 1$ if $n = m$ and $I_{nm} = 0$ otherwise. Hence prove the results (1.57) and (1.58).
+\end{exercise}
+
+\begin{solution}
+    若$n = m$，则$\Ebb[x_n^2] = \mu^2 + \sigma^2$；若$n \neq m$，则$\Ebb[x_n x_m] = \Ebb[x_n] \Ebb[x_m] = \mu^2$，故$\Ebb[x_n x_m] = \mu^2 + I_{nm} \sigma^2$。从而
+    \begin{align*}
+        \Ebb [\mu_{ML}] = \Ebb \left[ \frac{1}{N} \sum_{n \in [N]} x_n \right] = \frac{1}{N} \sum_{n \in [N]} \Ebb [x_n] = \frac{1}{N} \sum_{n \in [N]} \mu = \mu
+    \end{align*}
+    以及
+    \begin{align*}
+        \Ebb [\mu_{ML}^2] = \Ebb \left[ \frac{1}{N^2} \sum_{n,m \in [N]} x_n x_m \right] = \frac{1}{N^2} \sum_{n,m \in [N]} \Ebb[x_n x_m] = \frac{1}{N^2} \sum_{n,m \in [N]} (\mu^2 + I_{nm} \sigma^2) = \mu^2 + \frac{1}{N} \sigma^2
+    \end{align*}
+    于是
+    \begin{align*}
+        \Ebb [\sigma^2_{ML}] & = \Ebb \left[ \frac{1}{N} \sum_{n \in [N]} (x_n - \mu_{ML})^2 \right] = \frac{1}{N} \sum_{n \in [N]} \left( \Ebb[x_n^2] - 2 \Ebb \left[ x_n \frac{1}{N} \sum_{m \in [N]} x_m \right] + \Ebb[\mu_{ML}^2] \right) \\
+                             & = \frac{1}{N} \sum_{n \in [N]} \Ebb[x_n^2] - 2 \frac{1}{N^2} \sum_{n,m \in [N]} \Ebb[x_n x_m] + \frac{1}{N} \sum_{n \in [N]} \Ebb[\mu_{ML}^2]                                                                   \\
+                             & = \Ebb[x_n^2] - \Ebb[\mu_{ML}^2]                                                                                                                                                                                \\
+                             & = \mu^2 + \sigma^2 - \mu^2 - \frac{1}{N} \sigma^2                                                                                                                                                               \\
+                             & = \frac{N-1}{N} \sigma^2
+    \end{align*}
+\end{solution}
+
+\begin{exercise}
+    Suppose that the variance of a Gaussian is estimated using the result (1.56) but with the maximum likelihood estimate $\mu_{ML}$ replaced with the true value $\mu$ of the mean. Show that this estimator has the property that its expectation is given by the true variance $\sigma^2$.
+\end{exercise}
+
+\begin{solution}
+    显然
+    \begin{align*}
+        \Ebb \left[ \frac{1}{N} \sum_{n \in [N]} (x_n - \mu)^2 \right] & = \frac{1}{N} \sum_{n \in [N]} \Ebb[x_n^2 - 2 x_n \mu + \mu^2]                                                               \\
+                                                                       & = \frac{1}{N} \sum_{n \in [N]} \Ebb[x_n^2] - \frac{2 \mu}{N} \sum_{n \in [N]} \Ebb[x_n] + \frac{1}{N} \sum_{n \in [N]} \mu^2 \\
+                                                                       & = \mu^2 + \sigma^2 - 2 \mu^2 + \mu^2                                                                                         \\
+                                                                       & = \sigma^2
+    \end{align*}
+\end{solution}
+
+\begin{exercise}
+    Show that an arbitrary square matrix with elements $w_{ij}$ can be written in the form $w_{ij} = w_{ij}^S + w_{ij}^A$, where $w_{ij}^S$ and $w_{ij}^A$ are symmetric and anti-symmetric matrices, respectively, satisfying $w_{ij}^S = w_{ji}^S$ and $w_{ij}^A = - w_{ji}^A$ for all $i$ and $j$. Now consider the second order term in a higher order polynomial in $D$ dimensions, given by
+    \begin{align*}
+        \sum_{i,j \in [D]} w_{ij} x_i x_j
+    \end{align*}
+    Show that
+    \begin{align*}
+        \sum_{i,j \in [D]} w_{ij} x_i x_j = \sum_{i,j \in [D]} w_{ij}^S x_i x_j
+    \end{align*}
+    so that the contribution from the anti-symmetric matrix vanishes. We therefore see that, without loss of generality, the matrix of coefficients $w_{ij}$ can be chosen to be symmetric, and so not all of the $D^2$ elements of this matrix can be chosen independently. Show that the number of independent parameters in the matrix $w_{ij}^S$ by $D(D + 1)/2$.
+\end{exercise}
+
+\begin{solution}
+    取$\Wv^S = (\Wv + \Wv^\top)/2$、$\Wv^A = (\Wv - \Wv^\top)/2$即可，显然
+    \begin{align*}
+        \xv^\top \Wv^S \xv = \frac{1}{2} \xv^\top \Wv \xv + \frac{1}{2} \xv^\top \Wv^\top \xv = \frac{1}{2} \xv^\top \Wv \xv + \frac{1}{2} \xv^\top \Wv \xv = \xv^\top \Wv \xv
+    \end{align*}
+    对称矩阵由其上三角或下三角部分确定，参数个数为$D(D + 1)/2$。
+\end{solution}
+
+\begin{exercise}
+    In this exercise and the next, we explore how the number of independent parameters in a polynomial grows with the order $M$ of the polynomial and with the dimensionality $D$ of the input space. We start by writing down the $M^{th}$ order term for a polynomial in $D$ dimensions in the form
+    \begin{align*}
+        \sum_{i_1,\ldots,i_M \in [D]} w_{i_1 i_2 \ldots i_M} x_{i_1} x_{i_2} \cdots x_{i_M}
+    \end{align*}
+    The coefficients $w_{i_1 i_2 \ldots i_M}$ comprise $D^M$ elements, but the number of independent parameters is significantly fewer due to the many interchange symmetries of the factor $x_{i_1} x_{i_2} \cdots x_{i_M}$. Begin by showing that the redundancy in the coefficients can be removed by rewriting this $M^{th}$ order term in the form
+    \begin{align*}
+        \sum_{i_1=1}^D \sum_{i_2=1}^{i_1} \cdots \sum_{i_M=1}^{i_{M-1}} \widetilde{w}_{i_1 i_2 \ldots i_M} x_{i_1} x_{i_2} \cdots x_{i_M}
+    \end{align*}
+    Note that the precise relationship between the $\widetilde{w}$ coefficients and $w$ coefficients need not be made explicit. Use this result to show that the number of \emph{independent} parameters $n(D, M)$, which appear at order $M$, satisfies the following recursion relation
+    \begin{align*}
+        n(D, M) = \sum_{i \in [D]} n(i, M-1)
+    \end{align*}
+    Next use proof by induction to show that the following result holds
+    \begin{align*}
+        \sum_{i \in [D]} \frac{(i+M-2)!}{(i-1)!(M-1)!} = \frac{(D+M-1)!}{(D-1)!M!}
+    \end{align*}
+    which can be done by first proving the result for $D = 1$ and arbitrary $M$ by making use of the result $0! = 1$, then assuming it is correct for dimension $D$ and verifying that it is correct for dimension $D + 1$. Finally, use the two previous results, together with proof by induction, to show
+    \begin{align*}
+        n(D, M) = \frac{(D+M-1)!}{(D-1)!M!}
+    \end{align*}
+    To do this, first show that the result is true for $M = 2$, and any value of $D \geq 1$, by comparison with the result of Exercise 1.14. Then make use of (1.135), together with (1.136), to show that, if the result holds at order $M-1$, then it will also hold at order $M$.
+\end{exercise}
+
+\begin{solution}
+    显然只需考虑满足$i_1 \geq i_2 \geq  \cdots \geq i_M$的项，即
+    \begin{align*}
+        \sum_{i_1=1}^D \sum_{i_2=1}^{i_1} \cdots \sum_{i_M=1}^{i_{M-1}} \widetilde{w}_{i_1 i_2 \ldots i_M} x_{i_1} x_{i_2} \cdots x_{i_M}
+    \end{align*}
+    又$i_1$有$D$种不同的选择，因此
+    \begin{align*}
+        n(D, M) = \sum_{i \in [D]} n(i, M-1)
+    \end{align*}
+    下面用数学归纳法证明
+    \begin{align*}
+        \sum_{i \in [D]} \frac{(i+M-2)!}{(i-1)!(M-1)!} = \frac{(D+M-1)!}{(D-1)!M!}
+    \end{align*}
+    当$D = 1$时
+    \begin{align*}
+        lhs = \frac{(D+M-2)!}{(D-1)!(M-1)!} = \frac{(D+M-1)!}{(D-1)!(M-1)!(D+M-1)} = \frac{(D+M-1)!}{(D-1)!M!} = rhs
+    \end{align*}
+    结论成立，
+    \begin{align*}
+        \sum_{i \in [D+1]} \frac{(i+M-2)!}{(i-1)!(M-1)!} & = \frac{(D+M-1)!}{D!(M-1)!} + \sum_{i \in [D]} \frac{(i+M-2)!}{(i-1)!(M-1)!} \\
+                                                         & = \frac{(D+M-1)!}{D!(M-1)!} + \frac{(D+M-1)!}{(D-1)!M!}                      \\
+                                                         & = (D+M-1)! \left( \frac{M}{D!M!} + \frac{D}{D!M!} \right)                    \\
+                                                         & = \frac{(D+M)!}{D!M!}
+    \end{align*}
+    剩下的结论是显然的。
+\end{solution}
+
+\begin{exercise}
+    In Exercise 1.15, we proved the result (1.135) for the number of independent parameters in the $M^{th}$ order term of a $D$-dimensional polynomial. We now find an expression for the total number $N(D, M)$ of independent parameters in all of the terms up to and including the $M^{th}$ order. First show that $N(D, M)$ satisfies
+    \begin{align*}
+        N(D, M) = \sum_{m=0}^M n(D,m)
+    \end{align*}
+    where $n(D, m)$ is the number of independent parameters in the term of order $m$. Now make use of the result (1.137), together with proof by induction, to show that
+    \begin{align*}
+        N(D, M) = \frac{(D+M)!}{D!M!}
+    \end{align*}
+    This can be done by first proving that the result holds for $M = 0$ and arbitrary $D \geq 1$, then assuming that it holds at order $M$, and hence showing that it holds at order $M + 1$. Finally, make use of Stirling's approximation in the form
+    \begin{align*}
+        n! \simeq n^n e^{-n}
+    \end{align*}
+    for large $n$ to show that, for $D \gg M$, the quantity $N(D, M)$ grows like $D^M$, and for $M \gg D$ it grows like $M^D$. Consider a cubic ($M = 3$) polynomial in $D$ dimensions, and evaluate numerically the total number of independent parameters for (i) $D = 10$ and (ii) $D = 100$, which correspond to typical small-scale and medium-scale machine learning applications.
+\end{exercise}
+
+\begin{solution}
+    即只需证
+    \begin{align*}
+        \sum_{m=0}^M \frac{(D+m-1)!}{(D-1)!m!} = \frac{(D+M)!}{D!M!}
+    \end{align*}
+    当$M = 0$时
+    \begin{align*}
+        lhs = \frac{(D+0-1)!}{(D-1)!0!} = \frac{(D-1)!}{(D-1)!0!} = \frac{(D+0)!}{D!0!} = rhs
+    \end{align*}
+    结论成立，
+    \begin{align*}
+        \sum_{m=0}^{M+1} \frac{(D+m-1)!}{(D-1)!m!} & = \frac{(D+M)!}{(D-1)!(M+1)!} + \sum_{m=0}^M \frac{(D+m-1)!}{(D-1)!m!} \\
+                                                   & = \frac{(D+M)!}{(D-1)!(M+1)!} + \frac{(D+M)!}{D!M!}                    \\
+                                                   & = (D+M)! \frac{D+M+1}{D!(M+1)!}                                        \\
+                                                   & = \frac{(D+M+1)!}{D!(M+1)!}
+    \end{align*}
+    若$D \gg M$，根据Stirling公式
+    \begin{align*}
+        N(D, M) = \frac{(D+M)!}{D!M!} \simeq \frac{(D+M)^{D+M} e^{-(D+M)}}{D^D e^{-D} M!} = \frac{(D+M)^{D+M} e^{-M}}{D^D M!} = \frac{D^M e^{-M}}{M!} \left( 1 + \frac{M}{D} \right)^{D+M} \approx D^M
+    \end{align*}
+    当$M \gg D$时同理可得。
+\end{solution}
+
+\begin{exercise}
+    The gamma function is defined by
+    \begin{align*}
+        \Gamma(x) \equiv \int_0^\infty u^{x-1} e^{-u} \diff u
+    \end{align*}
+    Using integration by parts, prove the relation $\Gamma(x + 1) = x \Gamma(x)$. Show also that $\Gamma(1) = 1$ and hence that $\Gamma(x + 1) = x!$ when $x$ is an integer.
+\end{exercise}
+
+\begin{solution}
+    易知
+    \begin{align*}
+        \Gamma(x + 1) = \int_0^\infty u^x e^{-u} \diff u = - \int_0^\infty u^x \diff e^{-u} = - \underbrace{u^x e^{-u} |_0^\infty}_{0} + \int_0^\infty e^{-u} \diff u^x = \int_0^\infty e^{-u} x u^{x-1} \diff u = x \Gamma(x)
+    \end{align*}
+    以及
+    \begin{align*}
+        \Gamma(1) = \int_0^\infty e^{-u} \diff u = - e^{-u}|_0^\infty = 1
+    \end{align*}
+\end{solution}
+
+\begin{exercise}
+    We can use the result (1.126) to derive an expression for the surface area $S_D$, and the volume $V_D$, of a sphere of unit radius in $D$ dimensions. To do this, consider the following result, which is obtained by transforming from Cartesian to polar coordinates
+    \begin{align*}
+        \prod_{i \in [D]} \int_{-\infty}^\infty e^{-x_i^2} \diff x_i = S_D \int_0^\infty e^{-r^2} r^{D-1} \diff r
+    \end{align*}
+    Using the definition (1.141) of the Gamma function, together with (1.126), evaluate both sides of this equation, and hence show that
+    \begin{align*}
+        S_D = \frac{2 \pi^{D/2}}{\Gamma(D/2)}
+    \end{align*}
+    Next, by integrating with respect to radius from $0$ to $1$, show that the volume of the unit sphere in $D$ dimensions is given by
+    \begin{align*}
+        V_D = \frac{S_D}{D}
+    \end{align*}
+    Finally, use the results $\Gamma(1) = 1$ and $\Gamma(3/2) = \sqrt{\pi}/2$ to show that (1.143) and (1.144) reduce to the usual expressions for $D = 2$ and $D = 3$.
+\end{exercise}
+
+\begin{solution}
+    令$u = r^2$，则$\diff u = 2r \diff r$，于是
+    \begin{align*}
+        rhs = \frac{S_D}{2} \int_0^\infty e^{-u} u^{D/2-1} \diff u = \frac{S_D}{2} \Gamma(D/2)
+    \end{align*}
+    又
+    \begin{align*}
+        lhs = \left( \int_{-\infty}^\infty e^{-x_i^2} \diff x_i \right)^D = \pi^{D/2}
+    \end{align*}
+    整理可得
+    \begin{align*}
+        S_D = \frac{2 \pi^{D/2}}{\Gamma(D/2)}
+    \end{align*}
+    显然半径为$r$的球的表面积为$S_D r^{D-1}$，于是
+    \begin{align*}
+        V_D = \int_0^1 S_D r^{D-1} \diff r = \frac{S_D}{D} = \frac{1}{D} \frac{2 \pi^{D/2}}{\Gamma(D/2)}
+    \end{align*}
+    以及
+    \begin{align*}
+        V_2 = \frac{1}{2} \frac{2 \pi}{\Gamma(2/2)} = \pi, \quad V_3 = \frac{1}{3} \frac{2 \pi^{3/2}}{\Gamma(3/2)} = \frac{1}{3} \frac{2 \pi^{3/2}}{\sqrt{\pi}/2} = \frac{4 \pi}{3}
+    \end{align*}
+\end{solution}
+
+\begin{exercise}
+    Consider a sphere of radius $a$ in $D$-dimensions together with the concentric hypercube of side $2a$, so that the sphere touches the hypercube at the centres of each of its sides. By using the results of Exercise 1.18, show that the ratio of the volume of the sphere to the volume of the cube is given by
+    \begin{align*}
+        \frac{volume~of~sphere}{volume~of~cube} = \frac{\pi^{D/2}}{D 2^{D-1} \Gamma(D/2)}
+    \end{align*}
+    Now make use of Stirling's formula in the form
+    \begin{align*}
+        \Gamma(x+1) \simeq (2 \pi)^{1/2} e^{-x} x^{x+1/2}
+    \end{align*}
+    which is valid for $x \gg 1$, to show that, as $D \rightarrow \infty$, the ratio (1.145) goes to zero. Show also that the ratio of the distance from the centre of the hypercube to one of the corners, divided by the perpendicular distance to one of the sides, is $\sqrt{D}$, which therefore goes to $\infty$ as $D \rightarrow \infty$. From these results we see that, in a space of high dimensionality, most of the volume of a cube is concentrated in the large number of corners, which themselves become very long `spikes'!
+\end{exercise}
+
+\begin{solution}
+    立方体的体积为$(2a)^D$，因此
+    \begin{align*}
+        \frac{volume~of~sphere}{volume~of~cube} = \frac{1}{D} \frac{2 \pi^{D/2} a^D}{\Gamma(D/2)} \frac{1}{(2a)^D} = \frac{\pi^{D/2}}{D 2^{D-1} \Gamma(D/2)}
+    \end{align*}
+    结合Stirling公式
+    \begin{align*}
+        \frac{volume~of~sphere}{volume~of~cube} \simeq \frac{\pi^{D/2} e^{D/2-1}}{D 2^{D-1} (2 \pi)^{1/2} (D/2-1)^{(D-1)/2}} = \frac{\pi^{(D-1)/2} e^{D/2-1}}{D 2^{D/2} (D-2)^{(D-1)/2}} = \frac{\pi^{1/2}}{2D (D-2)^{1/2}} \left( \frac{\pi e}{2(D-2)} \right)^{D/2-1}
+    \end{align*}
+    原点到立方体顶点的距离是$\sqrt{D} a$，到面中心的距离是$a$，显然比值为$\sqrt{D}$。
+\end{solution}
+
+\begin{exercise}
+    In this exercise, we explore the behaviour of the Gaussian distribution in high-dimensional spaces. Consider a Gaussian distribution in $D$ dimensions given by
+    \begin{align*}
+        p(\xv) = \frac{1}{(2 \pi \sigma^2)^{D/2}} \exp \left( -\frac{\|\xv\|^2}{2\sigma^2} \right)
+    \end{align*}
+    We wish to find the density with respect to radius in polar coordinates in which the direction variables have been integrated out. To do this, show that the integral of the probability density over a thin shell of radius $r$ and thickness $\epsilon$, where $\epsilon \ll 1$, is given by $p(r) \epsilon$ where
+    \begin{align*}
+        p(r) = \frac{S_D r^{D-1}}{(2 \pi \sigma^2)^{D/2}} \exp \left( -\frac{r^2}{2\sigma^2} \right)
+    \end{align*}
+    where $S_D$ is the surface area of a unit sphere in $D$ dimensions. Show that the function $p(r)$ has a single stationary point located, for large $D$, at $\widehat{r} \simeq \sqrt{D} \sigma$. By considering $p(\widehat{r} + \epsilon)$ where $\epsilon \ll \widehat{r}$, show that for large $D$,
+    \begin{align*}
+        p(\widehat{r} + \epsilon) = p(\widehat{r}) \exp \left( - \frac{3\epsilon^2}{2\sigma^2} \right)
+    \end{align*}
+    which shows that $\widehat{r}$ is a maximum of the radial probability density and also that $p(r)$ decays exponentially away from its maximum at $\widehat{r}$ with length scale $\sigma$. We have already seen that $\sigma \ll \widehat{r}$ for large $D$, and so we see that most of the probability mass is concentrated in a thin shell at large radius. Finally, show that the probability density $p(x)$ is larger at the origin than at the radius $\widehat{r}$ by a factor of $\exp(D/2)$. We therefore see that most of the probability mass in a high-dimensional Gaussian distribution is located at a different radius from the region of high probability density. This property of distributions in spaces of high dimensionality will have important consequences when we consider Bayesian inference of model parameters in later chapters.
+\end{exercise}
+
+\begin{solution}
+    solution
+\end{solution}
+
+\section{Probability Distributions}
+
+\section{Linear Models for Regression}
+
+\section{Linear Models for Classification}
+
+\section{Neural Networks}
+
+\section{Kernel Methods}
+
+\begin{exercise}
+    Consider the dual formulation of the least squares linear regression problem given in Section 6.1. Show that the solution for the components $a_n$ of the vector $\av$ can be expressed as a linear combination of the elements of the vector $\phi(\xv_n)$. Denoting these coefficients by the vector $\wv$, show that the dual of the dual formulation is given by the original representation in terms of the parameter vector $\wv$.
+\end{exercise}
+
+\begin{solution}
+    对偶问题目标函数为
+    \begin{align*}
+        J(\av) = \frac{1}{2} \av^\top \Kv \Kv \av - \av^\top \Kv \tv + \frac{1}{2} \tv^\top \tv + \frac{\lambda}{2} \av^\top \Kv \av
+    \end{align*}
+    若$\Kv$满秩，则必然有$\av \in \sp(\Kv)$；若$\Kv$不满秩，可将$\av$正交分解为$\av_{\|} + \av_{\perp}$，其中$\av_{\perp} \in \ker(\Kv)$，显然$\av_{\perp}$对目标函数没有影响，故可令$\av = \av_{\|}$，又$\av_{\|}$属于$\Kv$的行空间，而$\Kv$是对称的，故也有$\av \in \sp(\Kv)$。设$\av = \Phiv \uv$，故
+    \begin{align*}
+        J(\av) & = \frac{1}{2} \| \Kv \av - \tv \|_2^2 + \frac{\lambda}{2} \av^\top \Kv \av                                               \\
+               & = \frac{1}{2} \| \Kv \Phiv \uv - \tv \|_2^2 + \frac{\lambda}{2} (\Phiv \uv)^\top \Kv \Phiv \uv                           \\
+               & = \frac{1}{2} \| \Phiv \Phiv^\top \Phiv \uv - \tv \|_2^2 + \frac{\lambda}{2} (\Phiv \uv)^\top \Phiv \Phiv^\top \Phiv \uv
+    \end{align*}
+    令$\wv = \Phiv^\top \Phiv \uv$可知
+    \begin{align*}
+        J(\av) = \frac{1}{2} \| \Phiv \wv - \tv \|_2^2 + \frac{\lambda}{2} \wv^\top \wv
+    \end{align*}
+\end{solution}
+
+\begin{exercise}
+    In this exercise, we develop a dual formulation of the perceptron learning algorithm. Using the perceptron learning rule (4.55), show that the learned weight vector $\wv$ can be written as a linear combination of the vectors $t_n \phi(\xv_n)$ where $t_n \in \{-1, +1\}$. Denote the coefficients of this linear combination by $\alpha_n$ and derive a formulation of the perceptron learning algorithm, and the predictive function for the perceptron, in terms of the $\alpha_n$. Show that the feature vector $\phi(\xv)$ enters only in the form of the kernel function $\kappa(\xv, \xv') = \phi(\xv)^\top \phi(\xv')$.
+\end{exercise}
+
+\begin{solution}
+    solution
+\end{solution}
+
+\section{Sparse Kernel Machines}
+
+\section{Graphical Models}
+
+\section{Mixture Models and EM}
+
+\section{Approximate Inference}
+
+\begin{exercise}
+    Verify that the log marginal distribution of the observed data $\ln p(\Xv)$ can be decomposed into two terms in the form (10.2) where $\Lcal (q)$ is given by (10.3) and $\KL (q \| p)$ is given by (10.4).
+\end{exercise}
+
+\begin{solution}
+    注意$\int q(\Zv) \diff \Zv = 1$，于是
+    \begin{align*}
+        \ln p(\Xv) & = \ln p(\Xv) \int q(\Zv) \diff \Zv = \int q(\Zv) \ln \frac{p(\Xv, \Zv)}{p(\Zv | \Xv)} \diff \Zv = \int q(\Zv) \ln \frac{p(\Xv, \Zv)}{q(\Zv)} \frac{q(\Zv)}{p(\Zv | \Xv)} \diff \Zv \\
+                   & = \underbrace{\int q(\Zv) \ln \frac{p(\Xv, \Zv)}{q(\Zv)} \diff \Zv}_{\Lcal (q)} + \underbrace{\int q(\Zv) \ln \frac{q(\Zv)}{p(\Zv | \Xv)} \diff \Zv}_{\KL (q \| p)}
+    \end{align*}
+\end{solution}
+
+\begin{exercise}
+    Use the properties $\Ebb [z_1] = m_1$ and $\Ebb [z_2] = m_2$ to solve the simultaneous equations (10.13) and (10.15), and hence show that, provided the original distribution $p(\zv)$ is nonsingular, the unique solution for the means of the factors in the approximation distribution is given by $\Ebb [z_1] = \mu_1$ and $\Ebb [z_2] = \mu_2$.
+\end{exercise}
+
+\begin{solution}
+    联立(10.13)和(10.15)可得
+    \begin{align*}
+        \begin{cases}
+            m_1 + \Lambda_{11}^{-1} \Lambda_{12} (m_2 - \mu_2) = \mu_1 \\
+            m_2 + \Lambda_{22}^{-1} \Lambda_{21} (m_1 - \mu_1) = \mu_2
+        \end{cases}
+    \end{align*}
+    写成矩阵的形式为
+    \begin{align*}
+        \begin{bmatrix}
+            1                              & \Lambda_{11}^{-1} \Lambda_{12} \\
+            \Lambda_{22}^{-1} \Lambda_{21} & 1
+        \end{bmatrix} \begin{bmatrix}
+            m_1 \\ m_2
+        \end{bmatrix} = \begin{bmatrix}
+            \mu_1 + \Lambda_{11}^{-1} \Lambda_{12} m_2 \\ \mu_2 + \Lambda_{22}^{-1} \Lambda_{21} m_1
+        \end{bmatrix}
+    \end{align*}
+    即
+    \begin{align*}
+        \begin{bmatrix}
+            \Lambda_{11} & \Lambda_{12} \\
+            \Lambda_{21} & \Lambda_{22}
+        \end{bmatrix} \begin{bmatrix}
+            m_1 \\ m_2
+        \end{bmatrix} = \begin{bmatrix}
+            \Lambda_{11} \mu_1 + \Lambda_{12} m_2 \\ \Lambda_{21} m_1 + \Lambda_{22} \mu_2
+        \end{bmatrix}
+    \end{align*}
+    显然$m_i = \mu_i$是上述线性方程组的一组解，若$p(\zv)$非奇异，则$\Lambdav$正定，从而该解还是唯一的。
+\end{solution}
+
+\begin{exercise}
+    Consider a factorized variational distribution $q(\Zv)$ of the form (10.5). By using the technique of Lagrange multipliers, verify that minimization of the Kullback-Leibler divergence $\KL(p\|q)$ with respect to one of the factors $q_i (\Zv_i)$, keeping all other factors fixed, leads to the solution (10.17).
+\end{exercise}
+
+\begin{solution}
+    首先对目标函数进行简化，只保留$q_j (\Zv_j)$相关的项
+    \begin{align*}
+        \KL(p\|q) & = - \int p(\Zv) \left[ \sum_{i \in [M]} \ln q_i (\Zv_i) \right] \diff \Zv + \const \\
+                  & = - \int p(\Zv) \ln q_j (\Zv_j) \diff \Zv + \const                                 \\
+                  & = - \int p(\Zv_j) \ln q_j (\Zv_j) \diff \Zv_j + \const
+    \end{align*}
+    然后考虑优化问题
+    \begin{align*}
+        \max_{q_j} \int p(\Zv_j) \ln q_j (\Zv_j) \diff \Zv_j \quad \st \quad \int q_j (\Zv_j) \diff \Zv_j = 1
+    \end{align*}
+    易知Lagrange函数为
+    \begin{align*}
+        L(q_j, \alpha) = \int p(\Zv_j) \ln q_j (\Zv_j) \diff \Zv_j - \alpha \left( \int q_j (\Zv_j) \diff \Zv_j - 1 \right)
+    \end{align*}
+    令$L(q_j, \alpha)$关于$q_j(\Zv_j)$的偏导数为零可得
+    \begin{align*}
+        \frac{p(\Zv_j)}{q_j (\Zv_j)} - \alpha = 0 \Longrightarrow p(\Zv_j) = \alpha q_j^\star (\Zv_j)
+    \end{align*}
+    两边对$\Zv_j$积分可知$\alpha = 1$，从而
+    \begin{align*}
+        q_j^\star (\Zv_j) = p(\Zv_j)
+    \end{align*}
+\end{solution}
+
+\begin{exercise}
+    Suppose that $p(\xv)$ is some fixed distribution and that we wish to approximate it using a Gaussian distribution $q(\xv) = \Ncal (\xv|\muv,\Sigmav)$. By writing down the form of the KL divergence $\KL(p\|q)$ for a Gaussian $q(\xv)$ and then differentiating, show that minimization of $\KL(p\|q)$ with respect to $\muv$ and $\Sigmav$ leads to the result that $\muv$ is given by the expectation of $\xv$ under $p(\xv)$ and that $\Sigmav$ is given by the covariance.
+\end{exercise}
+
+\begin{solution}
+    设$\xv$的维度为$d$，将$q(\xv)$的表达式代入整理得
+    \begin{align*}
+        \KL(p\|q) & = \int p(\xv) \ln \frac{p(\xv)}{q(\xv)} \diff \xv                                                                                                                                                                  \\
+                  & = - \int p(\xv) \ln q(\xv) + \const                                                                                                                                                                                \\
+                  & = \int p(\xv) \left( \frac{1}{2} (\xv - \muv)^\top \Sigmav^{-1} (\xv - \muv) - \frac{d}{2} \ln (2 \pi) - \frac{1}{2} \ln |\Sigmav| \right) \diff \xv + \const                                                      \\
+                  & = \int p(\xv) \left( \frac{1}{2} \xv^\top \Sigmav^{-1} \xv - \muv^\top \Sigmav^{-1} \xv + \frac{1}{2} \muv^\top \Sigmav^{-1} \muv \right) \diff \xv - \frac{d}{2} \ln (2 \pi) - \frac{1}{2} \ln |\Sigmav| + \const \\
+                  & = \frac{1}{2} \Ebb [\xv^\top \Sigmav^{-1} \xv] - \muv^\top \Sigmav^{-1} \Ebb [\xv] + \frac{1}{2} \muv^\top \Sigmav^{-1} \muv - \frac{1}{2} \ln |\Sigmav| + \const
+    \end{align*}
+    其中$\Ebb [\xv]$是$\xv$在分布$p$下的期望。由此易知
+    \begin{align*}
+        \frac{\partial \KL(p\|q)}{\partial \muv} = \Sigmav^{-1} \muv - \Sigmav^{-1} \Ebb[\xv] = \Sigmav^{-1} (\muv - \Ebb[\xv])
+    \end{align*}
+    故
+    \begin{align*}
+        \muv^\star = \Ebb[\xv]
+    \end{align*}
+    回代可得
+    \begin{align*}
+        \KL(p\|q) = \frac{1}{2} \Ebb [\xv^\top \Sigmav^{-1} \xv] - \frac{1}{2} (\muv^\star)^\top \Sigmav^{-1} \muv^\star - \frac{1}{2} \ln |\Sigmav| + \const
+    \end{align*}
+    注意第一项中
+    \begin{align*}
+        \Ebb [\xv^\top \Sigmav^{-1} \xv] = \Ebb [\tr (\xv \xv^\top \Sigmav^{-1})] = \tr (\Ebb [\xv \xv^\top \Sigmav^{-1}]) = \tr (\Ebb [\xv \xv^\top] \Sigmav^{-1})
+    \end{align*}
+    于是
+    \begin{align*}
+        \KL(p\|q) = \frac{1}{2} \tr (\Ebb [\xv \xv^\top] \Sigmav^{-1}) - \frac{1}{2} (\muv^\star)^\top \Sigmav^{-1} \muv^\star - \frac{1}{2} \ln |\Sigmav| + \const
+    \end{align*}
+    下面求其关于$\Sigmav$的导数，结合
+    \begin{align*}
+        \frac{\diff (\tr (\Bv \Av^{-1} \Cv))}{\diff \Av} = - \Av^{-\top} \Bv^\top \Cv^\top \Av^{-\top}, \quad \frac{\diff |\Av|}{\diff \Av} = |\Av| \Av^{-\top}
+    \end{align*}
+    易知
+    \begin{align*}
+        \frac{\partial (\KL(p\|q))}{\partial \Sigmav} & = - \frac{1}{2} \Sigmav^{-\top} \Ebb [\xv \xv^\top] \Sigmav^{-\top} + \frac{1}{2} \Sigmav^{-\top} \muv^\star (\muv^\star)^\top \Sigmav^{-\top} - \Sigmav^{-\top} \\
+                                                      & = \frac{1}{2} \Sigmav^{-\top} (\muv^\star (\muv^\star)^\top - \Ebb [\xv \xv^\top] - \Sigmav^\top) \Sigmav^{-\top}
+    \end{align*}
+    故
+    \begin{align*}
+        \Sigmav^\star = \muv^\star (\muv^\star)^\top - \Ebb [\xv \xv^\top] = \Ebb[\xv] \Ebb[\xv]^\top - \Ebb [\xv \xv^\top] = \cov[\xv]
+    \end{align*}
+\end{solution}
+
+\begin{exercise}
+    Consider a model in which the set of all hidden stochastic variables, denoted collectively by $\Zv$, comprises some latent variables $\zv$ together with some model parameters $\thetav$. Suppose we use a variational distribution that factorizes between latent variables and parameters so that $q(\zv, \thetav) = q_{\zv} (\zv) q_{\thetav} (\thetav)$, in which the distribution $q_{\thetav} (\thetav)$ is approximated by a point estimate of the form $q_{\thetav} (\thetav) = \delta (\thetav − \thetav_0)$ where $\thetav_0$ is a vector of free parameters. Show that variational optimization of this factorized distribution is equivalent to an EM algorithm, in which the E step optimizes $q_{\zv} (\zv)$, and the M step maximizes the expected complete-data log posterior distribution of $\thetav$ with respect to $\thetav_0$.
+\end{exercise}
+
+\begin{solution}
+    solution
+\end{solution}
+
+\begin{exercise}
+    The alpha family of divergences is defined by (10.19). Show that the Kullback-Leibler divergence $\KL(p\|q)$ corresponds to $\alpha \rightarrow 1$. This can be done by writing $p^\epsilon = \exp(\epsilon \ln p) = 1 + \epsilon \ln p + O(\epsilon^2)$ and then taking $\epsilon \rightarrow 1$. Similarly show that $\KL(q\|p)$ corresponds to $\alpha \rightarrow -1$.
+\end{exercise}
+
+\begin{solution}
+    注意
+    \begin{align*}
+         & p(x)^{\frac{1+\alpha}{2}} = \exp \left( \frac{1+\alpha}{2} \ln p(x) \right), ~ \frac{\diff p(x)^{\frac{1+\alpha}{2}}}{\diff \alpha} = p(x)^{\frac{1+\alpha}{2}} \frac{\ln p(x)}{2}   \\
+         & q(x)^{\frac{1-\alpha}{2}} = \exp \left( \frac{1-\alpha}{2} \ln q(x) \right), ~ \frac{\diff q(x)^{\frac{1-\alpha}{2}}}{\diff \alpha} = - q(x)^{\frac{1-\alpha}{2}} \frac{\ln q(x)}{2}
+    \end{align*}
+    根据L'Hôpital法则
+    \begin{align*}
+        \lim_{\alpha \rightarrow \pm 1} D_\alpha (p \| q) & = \lim_{\alpha \rightarrow \pm 1} \frac{-4 \int p(x)^{\frac{1+\alpha}{2}} \frac{\ln p(x)}{2} q(x)^{\frac{1-\alpha}{2}} - p(x)^{\frac{1+\alpha}{2}} q(x)^{\frac{1-\alpha}{2}} \frac{\ln q(x)}{2} \diff x}{-2 \alpha} \\
+                                                          & = \lim_{\alpha \rightarrow \pm 1} \frac{\int p(x)^{\frac{1+\alpha}{2}} q(x)^{\frac{1-\alpha}{2}} \ln (p(x) / q(x)) \diff x}{\alpha}                                                                                 \\
+                                                          & = \begin{cases}
+            \int p(x) \ln (p(x) / q(x)) \diff x,   & \alpha \rightarrow 1  \\
+            - \int q(x) \ln (p(x) / q(x)) \diff x, & \alpha \rightarrow -1
+        \end{cases}                                                                                                                                                                                       \\
+                                                          & = \begin{cases}
+            \KL(p\|q), & \alpha \rightarrow 1  \\
+            \KL(q\|p), & \alpha \rightarrow -1
+        \end{cases}
+    \end{align*}
+\end{solution}
+
+\section{Sampling Methods}
+
+\section{Continuou Latent Variables}
+
+\section{Sequential Data}
+
+\section{Combining Models}
+
+\section*{附录}
+
+\subsection*{变分法}
+
+\subsection*{线性代数}
+
+\begin{proposition} \label{prop: matrix-det-derivative}
+    若方阵$\Av$的行列式大于零，则
+    \begin{align*}
+        \frac{\diff |\Av|}{\diff \Av} = |\Av| \Av^{-\top}
+    \end{align*}
+\end{proposition}
+
+\begin{solution}
+    记$a_{ij}$有一个微小增量$\epsilon$后的矩阵为$\Av(a_{ij} + \epsilon)$，根据第$i$行或第$j$列Laplace展开易知有
+    \begin{align*}
+        |\Av(a_{ij} + \epsilon)| - |\Av| = \epsilon A_{ij}
+    \end{align*}
+    其中$A_{ij}$是关于$a_{ij}$的代数余子式。于是
+    \begin{align*}
+        \frac{\diff |\Av|}{\diff a_{ij}} = \lim_{\epsilon \rightarrow 0} \frac{|\Av(a_{ij} + \epsilon)| - |\Av|}{\epsilon} = A_{ij}
+    \end{align*}
+    写成矩阵的形式为
+    \begin{align*}
+        \frac{\diff |\Av|}{\diff \Av} = \begin{bmatrix}
+            A_{11} & A_{21} & \cdots & A_{n1} \\
+            A_{12} & A_{22} & \cdots & A_{n2} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            A_{1n} & A_{2n} & \cdots & A_{nn}
+        \end{bmatrix} = (\Av^*)^{\top} = |\Av| \Av^{-\top}
+    \end{align*}
+    对于任意关于$|\Av|$的函数，如$\ln |\Av|$，由链式法则也不难求得其导数为$\Av^{-\top}$。
+\end{solution}
+
+\begin{proposition} \label{prop: matrix-quad-derivative}
+    若方阵$\Av$可逆，则
+    \begin{align*}
+        \frac{\diff (\tr (\Bv \Av^{-1} \Cv))}{\diff \Av} = - \Av^{-\top} \Bv^\top \Cv^\top \Av^{-\top}
+    \end{align*}
+\end{proposition}
+
+\begin{solution}
+    由矩阵乘法的线性性，易知有
+    \begin{align*}
+        \frac{\diff (\Av \Bv)}{\diff x} = \frac{\diff \Av}{\diff x} \Bv + \Av \frac{\diff \Bv}{\diff x}
+    \end{align*}
+    特别地，取$\Bv = \Av^{-1}$且$x = a_{ij}$可知有
+    \begin{align*}
+        \boldsymbol{0} = \frac{\diff \Iv}{\diff a_{ij}} = \frac{\diff (\Av \Av^{-1})}{\diff a_{ij}} = \frac{\diff \Av}{\diff a_{ij}} \Av^{-1} + \Av \frac{\diff \Av^{-1}}{\diff a_{ij}}
+    \end{align*}
+    即
+    \begin{align*}
+        \frac{\diff \Av^{-1}}{\diff a_{ij}} = - \Av^{-1} \frac{\diff \Av}{\diff a_{ij}} \Av^{-1}
+    \end{align*}
+    注意$\tr (\Bv \Av^{-1} \Cv) = \tr (\Av^{-1} \Cv \Bv)$，于是
+    \begin{align*}
+        \frac{\diff (\tr (\Bv \Av^{-1} \Cv))}{\diff a_{ij}} & = \frac{\diff (\tr(\Av^{-1} \Cv \Bv))}{\diff a_{ij}} = \tr \left( \frac{\diff (\Av^{-1} \Cv \Bv)}{\diff a_{ij}} \right)                                         \\
+                                                            & = \tr \left( - \Av^{-1} \frac{\diff \Av}{\diff a_{ij}} \Av^{-1} \Cv \Bv \right) = - \tr \left( \frac{\diff \Av}{\diff a_{ij}} \Av^{-1} \Cv \Bv \Av^{-1} \right)
+    \end{align*}
+    注意$\diff \Av / \diff a_{ij}$是一个$(i,j)$处为$1$其余均为$0$的矩阵，于是
+    \begin{align*}
+        \frac{\diff (\tr (\Bv \Av^{-1} \Cv))}{\diff a_{ij}} = - [\Av^{-1} \Cv \Bv \Av^{-1}]_{ji}
+    \end{align*}
+    写成矩阵的形式为
+    \begin{align*}
+        \frac{\diff (\tr (\Bv \Av^{-1} \Cv))}{\diff \Av} = - \Av^{-\top} \Bv^\top \Cv^\top \Av^{-\top}
+    \end{align*}
+\end{solution}
+
+\end{document}

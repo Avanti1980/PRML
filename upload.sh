@@ -1,0 +1,1 @@
+git add 勘误.pdf 模式识别与机器学习.pdf 习题解答.pdf "Pattern Recognition And Machine Learning - Christopher M. Bishop - solution.pdf" "Pattern Recognition And Machine Learning - Christopher M. Bishop.pdf" solution.tex upload.sh
